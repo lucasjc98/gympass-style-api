@@ -9,11 +9,7 @@ interface RegisterUseCaseRequest {
 }
 
 export class RegisterUseCase {
-  private usersRepository: IUsersRepository
-
-  constructor(usersRepository: IUsersRepository) {
-    this.usersRepository = usersRepository
-  }
+  constructor(private usersRepository: IUsersRepository) {}
 
   async execute({ name, email, password }: RegisterUseCaseRequest) {
     const passwordHash = await hash(password, 6)

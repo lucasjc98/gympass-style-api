@@ -8,5 +8,7 @@ export default defineConfig({
     coverage: {
       all: false,
     },
+    environmentMatchGlobs: [['src/http/controllers/**', 'prisma']],
+    dir: 'src', // Essa linha
   },
 })

@@ -1,28 +1,28 @@
-import { User, Prisma } from '@prisma/client'
-import { IUsersRepository } from '../users-repository'
-import { randomUUID } from 'node:crypto'
+import { User, Prisma, $Enums } from "@prisma/client";
+import { IUsersRepository } from "../users-repository";
+import { randomUUID } from "node:crypto";
 
 export class InMemoryUserRepository implements IUsersRepository {
-  public items: User[] = []
+  public items: User[] = [];
 
   async findById(id: string): Promise<User | null> {
-    const user = this.items.find((item) => item.id === id)
+    const user = this.items.find((item) => item.id === id);
 
     if (!user) {
-      return null
+      return null;
     }
 
-    return user
+    return user;
   }
 
   async findByEmail(email: string) {
-    const user = this.items.find((item) => item.email === email)
+    const user = this.items.find((item) => item.email === email);
 
     if (!user) {
-      return null
+      return null;
     }
 
-    return user
+    return user;
   }
 
   async create(data: Prisma.UserCreateInput) {
@@ -32,10 +32,11 @@ export class InMemoryUserRepository implements IUsersRepository {
       email: data.email,
       password_hash: data.password_hash,
       created_at: new Date(),
-    }
+      role: $Enums.ROLE.MEMBER,
+    };
 
-    this.items.push(user)
+    this.items.push(user);
 
-    return user
+    return user;
   }
 }
